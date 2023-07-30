@@ -210,6 +210,8 @@ class Game:
         loss = 0
         mean_score = []
         time_start = time.time()
+        loss_logs = []
+        test_score_logs = []
 
         #Print training initials
         print("Start training process of agent")
@@ -246,7 +248,8 @@ class Game:
             mean_score.append(test_score)
             if test_score == 100: convergence += 1 #look if agent has perfectly performed the game
             else: convergence = 0
-            
+            loss_logs.append(round(loss/batches,3))
+            test_score_logs.append(test_score)
             #Print training perfomance log
             time_step = time.time()
             if episode % 10 == 0 or convergence == 2: 
@@ -268,3 +271,4 @@ class Game:
         self.train = False
         
         print("Training finished after {} episodes".format(episode))
+        return loss_logs, test_score_logs
